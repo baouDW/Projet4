@@ -26,16 +26,13 @@ function getComments($postId)
     return $comments;
 }
 
-function insertComment($postId,$author,$comment)
+function postComment($postId, $author, $comment)
 {
     $db = dbConnect();
-    $req = $db->prepare('INSERT INTO commentaires (post_id, author, comment, comment_date) VALUES (:post_id, :author, :comment, NOW())');
-    $req->execute(array(
-    'post_id' => $post_id,
-    'author' => $author,
-    'comment'=> $comment    
-    ));
-        
+    $comments = $db->prepare('INSERT INTO commentaires (post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
+    $affectedLines = $comments->execute(array($postId, $author, $comment));
+
+    return $affectedLines;
 }
 
 function insertPost($title,$content)
@@ -48,6 +45,7 @@ function insertPost($title,$content)
     ));
         
 }
+
 function UptdatePost($title, $content, $id)
 {
     $db = dbConnect();

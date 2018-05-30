@@ -1,5 +1,6 @@
 <?php
 require('model/model.php');
+
 function listPosts(){
 	$posts= getPosts();
 	require('view/accueilView.php');
@@ -12,11 +13,16 @@ function insertP(){
 	header('Location: view/adminView.php');
 }
 
-function insertCom(){
+function addComment($postId, $author, $comment)
+{
+    $affectedLines = postComment($postId, $author, $comment);
 
-	$insertComment= insertComment($_GET['id'], $_POST['auteur'], $_POST['texte']);
-
-	//header('Location: view/adminView.php');
+    if ($affectedLines === false) {
+        die('Impossible d\'ajouter le commentaire !');
+    }
+    else {
+        header('Location: view/postView.php');
+    }
 }
 
 function update(){
@@ -36,4 +42,3 @@ function posts(){
 }
 
 
-?>

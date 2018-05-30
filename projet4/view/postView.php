@@ -26,7 +26,7 @@ $comments=getComments($_GET['id']);*/
             </p>
         </div>
         <div>
-            <form method="post" action="../index.php?id=<?= $post['id'] ?>&action=insertComm">
+            <form action="../index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
                 <p>
                     <label for="auteur">
                         Auteur
